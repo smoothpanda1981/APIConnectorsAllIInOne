@@ -51,6 +51,9 @@
     <mapping class="com.yan.wang.creditcard.dao.Visa"/>
     <mapping class="com.yan.wang.creditcard.dao.Voyager"/>
     <mapping class="com.yan.wang.creditcard.dao.Discover"/>
+    <mapping class="com.yan.wang.creditcard.dao.Customer"/>
+    <mapping class="com.yan.wang.creditcard.dao.Voucher"/>
+    <mapping class="com.yan.wang.creditcard.dao.CustomerVoucher"/>
 
 
     <!--

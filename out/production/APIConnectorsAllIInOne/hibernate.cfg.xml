@@ -15,9 +15,14 @@
     <!-- HSQLDB Connection -->
     <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
     <property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost/</property>
+    <!--<property name='hibernate.connection.driver_class'>com.mysql.jdbc.Driver</property>
+    <property name='hibernate.connection.url'>jdbc:mysql://localhost:3306/SampleDB</property>-->
+
+
     <property name="hibernate.connection.username">SA</property>
     <property name="hibernate.connection.password"></property>
     <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+    <!--<property name='dialect'>org.hibernate.dialect.MySQLDialect</property>-->
 
     <property name="hibernate.connection.pool_size">4</property>
 
@@ -26,6 +31,7 @@
 
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
+
     <!--
     <property name="hibernate.use_sql_comments">true</property>
     -->
@@ -45,6 +51,9 @@
     <mapping class="com.yan.wang.creditcard.dao.Visa"/>
     <mapping class="com.yan.wang.creditcard.dao.Voyager"/>
     <mapping class="com.yan.wang.creditcard.dao.Discover"/>
+    <mapping class="com.yan.wang.creditcard.dao.Customer"/>
+    <mapping class="com.yan.wang.creditcard.dao.Voucher"/>
+    <mapping class="com.yan.wang.creditcard.dao.CustomerVoucher"/>
 
 
     <!--

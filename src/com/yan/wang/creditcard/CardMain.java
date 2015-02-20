@@ -28,6 +28,9 @@ public class CardMain {
     static private List<Visa> visaList = new ArrayList<Visa>();
     static private List<Voyager> voyagerList = new ArrayList<Voyager>();
     static private List<Discover> discoverList = new ArrayList<Discover>();
+    static private List<Customer> customerList = new ArrayList<Customer>();
+    static private List<Voucher> voucherList = new ArrayList<Voucher>();
+    static private List<CustomerVoucher> customerVoucherList = new ArrayList<CustomerVoucher>();
 
     static String[] filePaths = new String [] {
             "/home/ywang/MyStuff/temp/APIConnectorsAllIInOne/resources/AmericanExpress.json"
@@ -66,7 +69,7 @@ public class CardMain {
             parseCreditCard(triple);
         }
 
-
+        parseCustomerAndVoucher();
 
         Session session = HibernateUtil.getSession();
 
@@ -97,6 +100,18 @@ public class CardMain {
 
         for (Discover discover : discoverList) {
             long id = (Long) session.save(discover);
+        }
+
+        for (Customer customer : customerList) {
+            long id = (Long) session.save(customer);
+        }
+
+        for (Voucher voucher : voucherList) {
+            long id = (Long) session.save(voucher);
+        }
+
+        for (CustomerVoucher customerVoucher : customerVoucherList) {
+            long id = (Long) session.save(customerVoucher);
         }
         tx1.commit();
     }
@@ -169,6 +184,7 @@ public class CardMain {
             e.printStackTrace();
         }
 
+
         /*for (AMEX amex : aMexList) {
             System.out.println(amex.getId() + " - " + amex.getIssuingNetwork() + " - " + amex.getCardNumber());
         }
@@ -177,6 +193,40 @@ public class CardMain {
             System.out.println(discover.getId() + " - " + discover.getIssuingNetwork() + " - " + discover.getCardNumber());
         }*/
     }
+
+    public static void parseCustomerAndVoucher() {
+        Customer customer1 = new Customer(Integer.valueOf(1).longValue(), "yan.wang.ch@gmail.com");
+        Customer customer2 = new Customer(Integer.valueOf(2).longValue(), "yan.wang.geneva@gmail.com");
+        customerList.add(customer1);
+        customerList.add(customer2);
+
+        Voucher voucher1 = new Voucher(Integer.valueOf(1).longValue(), "TAB : 0001 - $10", "Starbucks", Integer.valueOf(1).longValue());
+        Voucher voucher2 = new Voucher(Integer.valueOf(2).longValue(), "TAB : 0002 - $50", "Starbucks", Integer.valueOf(1).longValue());
+        Voucher voucher3 = new Voucher(Integer.valueOf(3).longValue(), "TAB : 0003 - $100", "Starbucks", Integer.valueOf(0).longValue());
+        Voucher voucher4 = new Voucher(Integer.valueOf(4).longValue(), "TAB : 0004 - $200", "Starbucks", Integer.valueOf(0).longValue());
+        Voucher voucher5 = new Voucher(Integer.valueOf(5).longValue(), "TAB : 0005 - $500", "Starbucks", Integer.valueOf(0).longValue());
+        Voucher voucher6 = new Voucher(Integer.valueOf(6).longValue(), "TAB : 000A - $25", "TimHorton", Integer.valueOf(0).longValue());
+        Voucher voucher7 = new Voucher(Integer.valueOf(7).longValue(), "TAB : 000B - $50", "TimHorton", Integer.valueOf(0).longValue());
+        Voucher voucher8 = new Voucher(Integer.valueOf(8).longValue(), "TAB : 000C - $100", "TimHorton", Integer.valueOf(0).longValue());
+        Voucher voucher9 = new Voucher(Integer.valueOf(9).longValue(), "TAB : 000D - $150", "TimHorton", Integer.valueOf(0).longValue());
+        Voucher voucher10 = new Voucher(Integer.valueOf(10).longValue(), "TAB : 000E - $200", "TimHorton", Integer.valueOf(0).longValue());
+        voucherList.add(voucher1);
+        voucherList.add(voucher2);
+        voucherList.add(voucher3);
+        voucherList.add(voucher4);
+        voucherList.add(voucher5);
+        voucherList.add(voucher6);
+        voucherList.add(voucher7);
+        voucherList.add(voucher8);
+        voucherList.add(voucher9);
+        voucherList.add(voucher10);
+
+        CustomerVoucher customerVoucher1 = new CustomerVoucher(Integer.valueOf(1).longValue(), Integer.valueOf(1).longValue(), Integer.valueOf(1).longValue());
+        CustomerVoucher customerVoucher2 = new CustomerVoucher(Integer.valueOf(2).longValue(), Integer.valueOf(2).longValue(), Integer.valueOf(2).longValue());
+        customerVoucherList.add(customerVoucher1);
+        customerVoucherList.add(customerVoucher2);
+    }
+
 
     /*class CC<T extends CreditCard> {
         private T typeOfCrediCard;
