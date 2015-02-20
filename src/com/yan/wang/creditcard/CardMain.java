@@ -3,6 +3,7 @@ package com.yan.wang.creditcard;
 import com.yan.wang.creditcard.dao.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.envers.internal.tools.Triple;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -67,6 +68,13 @@ public class CardMain {
 
 
         Session session = HibernateUtil.getSession();
+        int i = 0;
+        for (AMEX amex : aMexList) {
+            if (i < 3) {
+                long id = (Long) session.save(amex);
+            }
+            i++;
+        }
 
 
         //Query q = session.createQuery("select * from AMEX");

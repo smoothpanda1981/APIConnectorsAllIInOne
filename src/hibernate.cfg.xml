@@ -14,8 +14,8 @@
 
     <!-- HSQLDB Connection -->
     <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
-    <property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost</property>
-    <property name="hibernate.connection.username">sa</property>
+    <property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost/</property>
+    <property name="hibernate.connection.username">SA</property>
     <property name="hibernate.connection.password"></property>
     <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
 
@@ -37,6 +37,8 @@
     <property name="hibernate.hbm2ddl.auto">create-drop</property>
     -->
     <property name="hibernate.hbm2ddl.auto">create</property>
+
+    <mapping class="com.yan.wang.creditcard.dao.AMEX"/>
 
     <!--
     <mapping resource="deng.hibernate.test.quick.hbmxml.Simple.hbm.xml"/>
