@@ -8,6 +8,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import javax.persistence.Tuple;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -36,40 +37,33 @@ public class CardMain {
             ,"/home/ywang/MyStuff/temp/APIConnectorsAllIInOne/resources/Discover.json"
     };
 
-    static Map<String, Triple<String, Object, String>> listOfCards = new HashMap<String, Triple<String, Object, String>>();
-
     public static void main (String[] args) {
         CreditCardParser creditCardParser = new CreditCardParser();
 
 
-
-        Triple<String, Object, String> triple1 = new Triple<String, Object, String>(filePaths[0], aMexList, "AMEX");
-        Triple<String, Object, String> triple2 = new Triple<String, Object, String>(filePaths[1], dinersClubList, "DINERS");
-        Triple<String, Object, String> triple3 = new Triple<String, Object, String>(filePaths[2], jCBList, "JCB");
-        Triple<String, Object, String> triple4 = new Triple<String, Object, String>(filePaths[3], masterCardList, "MC");
-        Triple<String, Object, String> triple5 = new Triple<String, Object, String>(filePaths[4], visaList, "VISA");
-        Triple<String, Object, String> triple6 = new Triple<String, Object, String>(filePaths[5], voyagerList, "VOYAGER");
-        Triple<String, Object, String> triple7 = new Triple<String, Object, String>(filePaths[6], discoverList, "DISCOVER");
-
-        listOfCards.put("AMEX", triple1);
-        listOfCards.put("DINERS", triple2);
-        listOfCards.put("JCB", triple3);
-        listOfCards.put("MC", triple4);
-        listOfCards.put("VISA", triple5);
-        listOfCards.put("VOYAGER", triple6);
-        listOfCards.put("DISCOVER", triple7);
+        Triple<String, List<? extends CreditCard>, Integer> triple1 = new Triple<String, List<? extends CreditCard>, Integer>(filePaths[0], aMexList, 1);
+        Triple<String, List<? extends CreditCard>, Integer> triple2 = new Triple<String, List<? extends CreditCard>, Integer>(filePaths[1], dinersClubList, 2);
+        Triple<String, List<? extends CreditCard>, Integer> triple3 = new Triple<String, List<? extends CreditCard>, Integer>(filePaths[2], jCBList, 3);
+        Triple<String, List<? extends CreditCard>, Integer> triple4 = new Triple<String, List<? extends CreditCard>, Integer>(filePaths[3], masterCardList, 4);
+        Triple<String, List<? extends CreditCard>, Integer> triple5 = new Triple<String, List<? extends CreditCard>, Integer>(filePaths[4], visaList, 5);
+        Triple<String, List<? extends CreditCard>, Integer> triple6 = new Triple<String, List<? extends CreditCard>, Integer>(filePaths[5], voyagerList, 6);
+        Triple<String, List<? extends CreditCard>, Integer> triple7 = new Triple<String, List<? extends CreditCard>, Integer>(filePaths[6], discoverList, 7);
 
 
-        for (String key : listOfCards.keySet()) {
-            Triple<String, Object, String> tempTriple = listOfCards.get(key);
-            if ("AMEX".equals(tempTriple.getThird())) {
-                parseCreditCard(tempTriple.getFirst(), (List<AMEX>) tempTriple.getSecond());
-            } else if ("DINERS".equals(tempTriple.getThird())) {
-                parseCreditCard(tempTriple.getFirst(), (List<DinersClub>) tempTriple.getSecond());
-            } else if ("JCB".equals(tempTriple.getThird())) {
-                parseCreditCard(tempTriple.getFirst(), (List<JCB>) tempTriple.getSecond());
-            }
+        List<Triple<String, List<? extends CreditCard>, Integer>> list = new ArrayList<Triple<String, List<? extends CreditCard>, Integer>>();
+        list.add(triple1);
+        list.add(triple2);
+        list.add(triple3);
+        list.add(triple4);
+        list.add(triple5);
+        list.add(triple6);
+        list.add(triple7);
+
+
+        for (Triple<String, List<? extends CreditCard>, Integer> triple : list) {
+            parseCreditCard(triple);
         }
+
 
 
         Session session = HibernateUtil.getSession();
@@ -80,10 +74,12 @@ public class CardMain {
     }
 
 
-    public static void parseCreditCard(String path, Object storingList) {
+    public static void parseCreditCard(Triple<String, List<? extends CreditCard>, Integer> triple) {
+
         try {
+
             // read the json file
-            FileReader reader = new FileReader(path);
+            FileReader reader = new FileReader(triple.getFirst());
 
             JSONParser jsonParser = new JSONParser();
             Object obj = jsonParser.parse(reader);
@@ -92,6 +88,8 @@ public class CardMain {
             Iterator<JSONObject> iter = jsonArray.iterator();
 
             int i = 1;
+
+
             while (iter.hasNext()) {
                 JSONObject creditCard = new JSONObject();
                 creditCard = (JSONObject) iter.next();
@@ -101,8 +99,36 @@ public class CardMain {
                 Long cardNumber = (Long) obj2.get("CardNumber");
                 String issuingNetwork = (String) obj2.get("IssuingNetwork");
 
-
-                storingList.add(null);
+                switch (triple.getThird()) {
+                    case 1:
+                        AMEX amex = new AMEX((Integer.valueOf(i)).longValue(), issuingNetwork, cardNumber);
+                        aMexList.add(amex);
+                        break;
+                    case 2:
+                        DinersClub dinersClub = new DinersClub((Integer.valueOf(i)).longValue(), issuingNetwork, cardNumber);
+                        dinersClubList.add(dinersClub);
+                        break;
+                    case 3:
+                        JCB jcb = new JCB((Integer.valueOf(i)).longValue(), issuingNetwork, cardNumber);
+                        jCBList.add(jcb);
+                        break;
+                    case 4:
+                        MasterCard masterCard = new MasterCard((Integer.valueOf(i)).longValue(), issuingNetwork, cardNumber);
+                        masterCardList.add(masterCard);
+                        break;
+                    case 5:
+                        Visa visa = new Visa((Integer.valueOf(i)).longValue(), issuingNetwork, cardNumber);
+                        visaList.add(visa);
+                        break;
+                    case 6:
+                        Voyager voyager = new Voyager((Integer.valueOf(i)).longValue(), issuingNetwork, cardNumber);
+                        voyagerList.add(voyager);
+                        break;
+                    case 7:
+                        Discover discover = new Discover((Integer.valueOf(i)).longValue(), issuingNetwork, cardNumber);
+                        discoverList.add(discover);
+                        break;
+                }
                 i++;
             }
         } catch (FileNotFoundException ex) {
@@ -114,6 +140,14 @@ public class CardMain {
         } catch (org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }
+
+        /*for (AMEX amex : aMexList) {
+            System.out.println(amex.getId() + " - " + amex.getIssuingNetwork() + " - " + amex.getCardNumber());
+        }
+
+        for (Discover discover : discoverList) {
+            System.out.println(discover.getId() + " - " + discover.getIssuingNetwork() + " - " + discover.getCardNumber());
+        }*/
     }
 
     /*class CC<T extends CreditCard> {
