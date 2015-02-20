@@ -39,6 +39,13 @@
     <property name="hibernate.hbm2ddl.auto">create</property>
 
     <mapping class="com.yan.wang.creditcard.dao.AMEX"/>
+    <mapping class="com.yan.wang.creditcard.dao.DinersClub"/>
+    <mapping class="com.yan.wang.creditcard.dao.JCB"/>
+    <mapping class="com.yan.wang.creditcard.dao.MasterCard"/>
+    <mapping class="com.yan.wang.creditcard.dao.Visa"/>
+    <mapping class="com.yan.wang.creditcard.dao.Voyager"/>
+    <mapping class="com.yan.wang.creditcard.dao.Discover"/>
+
 
     <!--
     <mapping resource="deng.hibernate.test.quick.hbmxml.Simple.hbm.xml"/>

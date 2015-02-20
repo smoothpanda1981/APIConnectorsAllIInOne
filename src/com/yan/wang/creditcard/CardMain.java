@@ -4,6 +4,7 @@ import com.yan.wang.creditcard.dao.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.envers.internal.tools.Triple;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -68,17 +69,36 @@ public class CardMain {
 
 
         Session session = HibernateUtil.getSession();
-        int i = 0;
+
+        Transaction tx1 = session.beginTransaction();
         for (AMEX amex : aMexList) {
-            if (i < 3) {
-                long id = (Long) session.save(amex);
-            }
-            i++;
+            long id = (Long) session.save(amex);
         }
 
+        for (DinersClub dinersClub : dinersClubList) {
+            long id = (Long) session.save(dinersClub);
+        }
 
-        //Query q = session.createQuery("select * from AMEX");
+        for (JCB jcb : jCBList) {
+            long id = (Long) session.save(jcb);
+        }
 
+        for (MasterCard masterCard : masterCardList) {
+            long id = (Long) session.save(masterCard);
+        }
+
+        for (Visa visa : visaList) {
+            long id = (Long) session.save(visa);
+        }
+
+        for (Voyager voyager : voyagerList) {
+            long id = (Long) session.save(voyager);
+        }
+
+        for (Discover discover : discoverList) {
+            long id = (Long) session.save(discover);
+        }
+        tx1.commit();
     }
 
 
