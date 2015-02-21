@@ -33,13 +33,13 @@ public class CardMain {
     static private List<CustomerVoucher> customerVoucherList = new ArrayList<CustomerVoucher>();
 
     static String[] filePaths = new String [] {
-            "/home/ywang/MyStuff/temp/APIConnectorsAllIInOne/resources/AmericanExpress.json"
-            ,"/home/ywang/MyStuff/temp/APIConnectorsAllIInOne/resources/DinersClub.json"
-            ,"/home/ywang/MyStuff/temp/APIConnectorsAllIInOne/resources/JCB.json"
-            ,"/home/ywang/MyStuff/temp/APIConnectorsAllIInOne/resources/MasterCard.json"
-            ,"/home/ywang/MyStuff/temp/APIConnectorsAllIInOne/resources/Visa.json"
-            ,"/home/ywang/MyStuff/temp/APIConnectorsAllIInOne/resources/Voyager.json"
-            ,"/home/ywang/MyStuff/temp/APIConnectorsAllIInOne/resources/Discover.json"
+            "/home/ywang/Progs/workspace_idea/APIConnectorsAllIInOne/resources/AmericanExpress.json"
+            ,"/home/ywang/Progs/workspace_idea/APIConnectorsAllIInOne/resources/DinersClub.json"
+            ,"/home/ywang/Progs/workspace_idea/APIConnectorsAllIInOne/resources/JCB.json"
+            ,"/home/ywang/Progs/workspace_idea/APIConnectorsAllIInOne/resources/MasterCard.json"
+            ,"/home/ywang/Progs/workspace_idea/APIConnectorsAllIInOne/resources/Visa.json"
+            ,"/home/ywang/Progs/workspace_idea/APIConnectorsAllIInOne/resources/Voyager.json"
+            ,"/home/ywang/Progs/workspace_idea/APIConnectorsAllIInOne/resources/Discover.json"
     };
 
     public static void main (String[] args) {
